@@ -1,0 +1,16 @@
+{
+  "name": "Bitrix IBlock Helpers",
+  "type": "library",
+  "description": "Useful helper functions for bitrix's iblocks and hlblocks",
+  "keywords": ["bitrix", "iblock", "highload", "block", "helpers"],
+  "homepage": "https://yourcompany.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dmitriy Timofeev",
+      "email": "d.timofeev@digital-sector.ru",
+      "homepage": "",
+      "role": "Developer"
+    }
+  ]
+}

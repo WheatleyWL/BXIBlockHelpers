@@ -12,8 +12,5 @@
       "homepage": "",
       "role": "Developer"
     }
-  ],
-  "psr-4": {
-    "WheatleyWL\\BXIBlockHelpers\\": "src/"
-  }
+  ]
 }

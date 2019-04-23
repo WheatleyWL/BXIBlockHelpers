@@ -1,5 +1,5 @@
 {
-  "name": "WheatleyWL/BXIBlockHelpers",
+  "name": "WheatleyWL/bx-iblock-helpers",
   "type": "library",
   "description": "Useful helper functions for bitrix's iblocks and hlblocks",
   "keywords": ["bitrix", "iblock", "highload", "block", "helpers"],

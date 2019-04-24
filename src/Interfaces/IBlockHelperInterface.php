@@ -12,7 +12,7 @@ interface IBlockHelperInterface
      * @throws IBlockHelperException
      * @return int
      */
-    public static function getIBlockIdByCode($code, $type = null, $siteId = SITE_ID);
+    public static function getIBlockIdByCode($code, $type = null, $siteId = null);
 
     /**
      * @param string $code

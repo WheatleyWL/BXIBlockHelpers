@@ -79,7 +79,7 @@ class IBlockHelperTest extends TestCase
         $searchPropertyIBlockCode = 'pages';
 
         $iblockId = IBlockHelper::getIBlockIdByCode($searchPropertyIBlockCode);
-        $propertyId = IBlockHelper::getPropertyIDByCode($searchPropertyCode, $iblockId);
+        $propertyId = IBlockHelper::getPropertyIdByCode($searchPropertyCode, $iblockId);
 
         $expectedIBlock = $this->standardGetIBlockId($searchPropertyIBlockCode);
         $expected = \Bitrix\Iblock\PropertyTable::getList([

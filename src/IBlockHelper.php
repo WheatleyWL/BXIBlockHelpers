@@ -107,7 +107,7 @@ class IBlockHelper implements IBlockHelperInterface
     /**
      * @inheritDoc
      */
-    public static function getPropertyIDByCode($code, $iblockId)
+    public static function getPropertyIdByCode($code, $iblockId)
     {
         if(empty($code)) {
             throw new IBlockHelperException("Property code must not be empty");
@@ -148,7 +148,7 @@ class IBlockHelper implements IBlockHelperInterface
     /**
      * @inheritDoc
      */
-    public static function getEnumIDByXMLID($xmlId, $code, $iblockId)
+    public static function getEnumIdByXmlId($xmlId, $code, $iblockId)
     {
         if(empty($xmlId)) {
             throw new IBlockHelperException("XML_ID must not be empty");
@@ -156,7 +156,7 @@ class IBlockHelper implements IBlockHelperInterface
 
         if(empty(self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code][$xmlId]))
         {
-            $propertyId = self::getPropertyIDByCode($code, $iblockId);
+            $propertyId = self::getPropertyIdByCode($code, $iblockId);
 
             $res = \Bitrix\Iblock\PropertyEnumerationTable::getList([
                 'select' => [
@@ -182,7 +182,7 @@ class IBlockHelper implements IBlockHelperInterface
     /**
      * @inheritDoc
      */
-    public static function getXMLIDByEnumID($enumId, $code, $iblockId)
+    public static function getXmlIdByEnumId($enumId, $code, $iblockId)
     {
         if(empty($enumId)) {
             throw new IBlockHelperException("ENUM_ID must not be empty");
@@ -190,7 +190,7 @@ class IBlockHelper implements IBlockHelperInterface
 
         if(empty(self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code]))
         {
-            $propertyId = self::getPropertyIDByCode($code, $iblockId);
+            $propertyId = self::getPropertyIdByCode($code, $iblockId);
 
             $res = \Bitrix\Iblock\PropertyEnumerationTable::getList([
                 'select' => [

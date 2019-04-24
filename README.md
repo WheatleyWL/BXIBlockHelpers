@@ -37,11 +37,11 @@ $iblockId = IBlockHelper::getIBlockIdByCode('pages', 'content', 's1');
 // выборка инфоблока по коду и идентификатору сайта
 $iblockId = IBlockHelper::getIBlockIdByCode('pages', null, 's1');
 ```
-**Примечание**: при запросе ID инфоблока из административного раздела обязательно должен быть указан идентификатор сайта которому принадлежит инфоблок.
+**Примечание**: при запросе ID инфоблока из административного раздела обязательно должен быть указан идентификатор сайта, которому принадлежит инфоблок.
 
 **Получение ID свойства по символьному коду и ID инфоблока:**
 ```php
-$propCode = IBlockHelper::getPropertyIDByCode('BLOCK', 1);
+$propCode = IBlockHelper::getPropertyIdByCode('BLOCK', 1);
 ```
 
 **Получение ID секции по символьному коду и ID инфоблока:**
@@ -51,12 +51,12 @@ $section = IBlockHelper::getSectionIdByCode('AWESOME_SECTION', 1);
 
 **Получение ID пункта по XML_ID:**
 ```php
-$enumId = IBlockHelper::getEnumIDByXMLID('FLAT', 'CONTAINER_STYLE', 1);
+$enumId = IBlockHelper::getEnumIdByXmlId('FLAT', 'CONTAINER_STYLE', 1);
 ```
 
 **Получение XML_ID пункта по его ID:**
 ```php
-$xmlId = IBlockHelper::getXMLIDByEnumID(1, 'CONTAINER_STYLE', 1);
+$xmlId = IBlockHelper::getXmlIdByEnumId(1, 'CONTAINER_STYLE', 1);
 ```
 
 **Получение класса Highload блока по его названию:**

@@ -258,4 +258,35 @@ class IBlockHelper implements IBlockHelperInterface
 
         return self::$CACHED[self::CACHE_SECTIONS][$iblockId][$code];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getElementIdByCode($code, $iblockId)
+    {
+        if(empty($code)) {
+            throw new IBlockHelperException("Element code must not be empty");
+        }
+
+        if(empty($iblockId)) {
+            throw new IBlockHelperException("Element iblock id must not be empty");
+        }
+
+        $res = \Bitrix\IBlock\ElementTable::getList([
+            'select' => [
+                'ID'
+            ],
+            'filter' => [
+                'CODE' => $code,
+                'IBLOCK_ID' => $iblockId
+            ]
+        ]);
+
+        $element = $res->fetch();
+        if(empty($element)) {
+            throw new IBlockHelperException("No element found with code '{$code}' at iblock '{$iblockId}'");
+        }
+
+        return $element['ID'];
+    }
 }

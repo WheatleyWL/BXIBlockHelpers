@@ -47,4 +47,12 @@ interface IBlockHelperInterface
      * @return int
      */
     public static function getSectionIdByCode($code, $iblockId);
+
+    /**
+     * @param $code
+     * @param $iblockId
+     * @throws IBlockHelperException
+     * @return mixed
+     */
+    public static function getElementIdByCode($code, $iblockId);
 }

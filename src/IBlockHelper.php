@@ -146,6 +146,34 @@ class IBlockHelper implements IBlockHelperInterface
     }
 
     /**
+     * @param $code
+     * @param $iblockId
+     * @throws IBlockHelperException
+     * @throws \Bitrix\Main\ArgumentException
+     */
+    protected static function checkPropertyEnums($code, $iblockId)
+    {
+        if(empty(self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code]))
+        {
+            $propertyId = self::getPropertyIdByCode($code, $iblockId);
+
+            $res = \Bitrix\Iblock\PropertyEnumerationTable::getList([
+                'select' => [
+                    'ID',
+                    'XML_ID'
+                ],
+                'filter' => [
+                    'PROPERTY_ID' => $propertyId,
+                ]
+            ]);
+
+            while($enum = $res->fetch()) {
+                self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code][$enum['XML_ID']] = $enum['ID'];
+            }
+        }
+    }
+
+    /**
      * @inheritDoc
      */
     public static function getEnumIdByXmlId($xmlId, $code, $iblockId)
@@ -154,26 +182,10 @@ class IBlockHelper implements IBlockHelperInterface
             throw new IBlockHelperException("XML_ID must not be empty");
         }
 
-        if(empty(self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code][$xmlId]))
-        {
-            $propertyId = self::getPropertyIdByCode($code, $iblockId);
+        self::checkPropertyEnums($code, $iblockId);
 
-            $res = \Bitrix\Iblock\PropertyEnumerationTable::getList([
-                'select' => [
-                    'ID'
-                ],
-                'filter' => [
-                    'PROPERTY_ID' => $propertyId,
-                    'XML_ID' => $xmlId
-                ]
-            ]);
-
-            $enum = $res->fetch();
-            if(empty($enum)) {
-                throw new IBlockHelperException("No enum ID found with XML_ID '{$xmlId}' on property '{$code}' at iblock '{$iblockId}'");
-            }
-
-            self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code][$xmlId] = $enum['ID'];
+        if(empty(self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code][$xmlId])) {
+            throw new IBlockHelperException("No enum ID found with XML_ID '{$xmlId}' on property '{$code}' at iblock '{$iblockId}'");
         }
 
         return self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code][$xmlId];
@@ -188,28 +200,7 @@ class IBlockHelper implements IBlockHelperInterface
             throw new IBlockHelperException("ENUM_ID must not be empty");
         }
 
-        if(empty(self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code]))
-        {
-            $propertyId = self::getPropertyIdByCode($code, $iblockId);
-
-            $res = \Bitrix\Iblock\PropertyEnumerationTable::getList([
-                'select' => [
-                    'XML_ID'
-                ],
-                'filter' => [
-                    'PROPERTY_ID' => $propertyId,
-                    'ID' => $enumId,
-                    '!XML_ID' => false
-                ]
-            ]);
-
-            $enum = $res->fetch();
-            if(empty($enum)) {
-                throw new IBlockHelperException("No enum XML_ID found with ID '{$enumId}' on property '{$code}' at iblock '{$iblockId}'");
-            }
-
-            self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code][$enum['XML_ID']] = $enumId;
-        }
+        self::checkPropertyEnums($code, $iblockId);
 
         foreach(self::$CACHED[self::CACHE_XMLIDS][$iblockId][$code] as $xmlid => $id) {
             if($id == $enumId) {
